@@ -5,6 +5,7 @@ Many people use my config at school and don't agree with all the modification I
 want to do so 2 options :
 - I don't do what I want to do to not bother them
 - I do it because I really want it, sorry guys
+
 The thing is, when I find something fun which can help with the mac a 42, they
 need to update so they take the modification.
 
