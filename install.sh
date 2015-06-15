@@ -43,30 +43,25 @@ do
 		esac
 	elif [[ "${1:0:1}" = '-' ]]
 	then
-		if [[ "$1" = "-p" ]]
-		then
-			shift
-			INS_PERS="$1"
-		else
-			echo -n "${1#'-'}" | while read -n 1 c
-			do
-				case $c in
-					h)
-						echo "help"
-						;;
-					f)
-						INS_FORCE=OK
-						;;
-					u)
-						INS_UP_LN=OK
-						;;
-					*)
-						echo "Unknown option -$c"
-						usage
-						;;
-				esac
-			done
-		fi
+		case $1 in
+			-h)
+				echo "help"
+				;;
+			-p)
+				shift
+				INS_PERS="$1"
+				;;
+			-f)
+				INS_FORCE="OK"
+				;;
+			-u)
+				INS_UP_LN="OK"
+				;;
+			*)
+				echo "Unknown option $1"
+				usage
+				;;
+		esac
 	fi
 	shift
 done
