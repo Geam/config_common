@@ -7,7 +7,7 @@ want to do so 2 options :
 - I do it because I really want it, sorry guys
 
 The thing is, when I find something fun which can help with the mac a 42, they
-need to update so they take the modification.
+need to update so they take the modification even if they don't want some part.
 
 ## Solution
 I split my config in 2
