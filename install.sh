@@ -10,6 +10,16 @@ function usage()
 	exit 0
 }
 
+function do_ln()
+{
+	if [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -f "$PERS_PATH/$1" ]]; then
+		if [[ -e "$HOME/$2" ]]; then
+			rm -rf "$HOME/$2"
+		fi
+		ln -s "$PERS_PATH/$1" "$HOME/$2"
+	fi
+}
+
 # get the arg of the script
 while test $# -gt 0
 do
@@ -87,11 +97,12 @@ if [[ -n "$INS_UP_LN" ]]; then
 	rm -rf $HOME/.zshrc
 	ln -s $CONF_PATH/zshrc $HOME/.zshrc
 	if [[ -f "$PERS_PATH/ln" ]]; then
+		OIFS=$IFS
 		for FILE in `cat "$PERS_PATH/ln"`
 		do
-			if [[ -f "$PERS_PATH/$FILE" ]]; then
-				ln -s "$PERS_PATH/$FILE" "$HOME/.$FILE"
-			fi
+			IFS=":"
+			do_ln $FILE
+			IFS=$OIFS
 		done
 	fi
 fi

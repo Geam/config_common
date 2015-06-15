@@ -43,8 +43,18 @@ Well, it's just a repo with your file inside.
 #### Specific files
 - install.sh : If you provied a install.sh in your personnal repo, the global
   install.sh will run it
-- ln : the global install.sh will make symbolic link to all this files in $HOME
-  prefix with a dot
+- ln : the global install.sh will make symbolic link, cf "ln file" below
 - prompt : it should only contain the prompt you wich to use, if not provied,
   the general one will be use
 - zshrc : the global zshrc will source it at the end of it's own execution
+#### ln file
+In this file, you can write the symlink you want to create. Those symlink will
+be update by the global install.sh if you've got a zfs change. The syntax is
+as follow :
+<file_to_symlink>:<name_of_symlink>
+Those name will be prefix because, most of the time the file to symlink come
+from your personnal config dir and most of the time, you want it in your home.
+The command that will be run is the following :
+```bash
+ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
+```
