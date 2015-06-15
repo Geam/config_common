@@ -1,0 +1,40 @@
+NORMAL="%{$reset_color%}"
+# Definition du prompt
+precmd ()
+{
+    if [ $? -eq 0 ]
+    then
+        COLOR3="%{$fg[green]%}"
+    else
+        COLOR3="%{$fg[red]%}"
+    fi
+    ISGIT=$(git status 2> /dev/null)
+    if [ -n "$ISGIT" ]
+    then
+        STATUS=$(echo "$ISGIT" | grep "modified:\|renamed:\|new file:\|deleted:" | grep -v ".vim/bundle\|untracked")
+        BRANCH=$(git branch | cut -d ' ' -f 2 | tr -d '\n')
+        if [ -n "$STATUS" ]
+        then
+            COLOR="%{$fg[red]%}"
+        else
+            REMOTE_EXIST=$(git branch -a | grep remotes/origin/$BRANCH)
+            if [ -n "$REMOTE_EXIST" ]
+            then
+                REMOTE=$(git diff origin/$BRANCH)
+                if [ -n "$REMOTE" ]
+                then
+                    COLOR="%{$fg[yellow]%}"
+                else
+                    COLOR="%{$fg[green]%}"
+                fi
+            else
+                COLOR="%{$fg[green]%}"
+            fi
+        fi
+        RPROMPT="%{$COLOR%}($BRANCH)%{$NORMAL%}"
+    else
+        RPROMPT=""
+    fi
+    PROMPT="%B%{$fg[green]%}%n@%m%{$NORMAL%}%B:%{$fg[blue]%}%~%{$NORMAL%}
+%B%{$COLOR3%}> %{$NORMAL%}%b"
+}
