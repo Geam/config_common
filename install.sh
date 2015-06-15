@@ -25,8 +25,6 @@ while test $# -gt 0
 do
 	if [[ "${1:0:2}" == '--' ]]
 	then
-		echo "word"
-		echo -n "[$1] -> "
 		case $1 in
 			--help)
 				usage
@@ -45,29 +43,30 @@ do
 		esac
 	elif [[ "${1:0:1}" = '-' ]]
 	then
-		echo -n "${1#'-'}" | while read -n 1 c
-		do
-			echo -n "[$c] -> "
-			case $c in
-				h)
-					echo "help"
-					;;
-				f)
-					INS_FORCE=OK
-					;;
-				p)
-					shift
-					INS_PERS=$1
-					;;
-				u)
-					INS_UP_LN=OK
-					;;
-				*)
-					echo "Unknown option -$c"
-					usage
-					;;
-			esac
-		done
+		if [[ "$1" = "-p" ]]
+		then
+			shift
+			INS_PERS="$1"
+		else
+			echo -n "${1#'-'}" | while read -n 1 c
+			do
+				case $c in
+					h)
+						echo "help"
+						;;
+					f)
+						INS_FORCE=OK
+						;;
+					u)
+						INS_UP_LN=OK
+						;;
+					*)
+						echo "Unknown option -$c"
+						usage
+						;;
+				esac
+			done
+		fi
 	fi
 	shift
 done
