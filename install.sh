@@ -87,7 +87,7 @@ if [[ -n "$INS_UP_LN" ]]; then
 	rm -rf $HOME/.zshrc
 	ln -s $CONF_PATH/zshrc $HOME/.zshrc
 	if [[ -f "$PERS_PATH/ln" ]]; then
-		for FILE in `cat "$PERS_PATH"`
+		for FILE in `cat "$PERS_PATH/ln"`
 		do
 			if [[ -f "$PERS_PATH/$FILE" ]]; then
 				ln -s "$PERS_PATH/$FILE" "$HOME/.$FILE"

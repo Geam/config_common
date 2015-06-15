@@ -88,11 +88,7 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     OLD_HOME=$(cat $HOME/.old_home)
     if [[ "$OLD_HOME" != "$HOME" ]]; then
         echo $HOME > $HOME/.old_home
-        if [[ `basename $HOME` = "mdelage" ]]; then
-            env GEAM=true $HOME/.dotfiles/install.sh -c -l
-        else
-            $HOME/.dotfiles/install.sh -c -l
-        fi
+        $C_PATH_TO_CONFIG/install.sh -u
         echo "+------------------------+"
         echo "| /!\\ You've changed zsf |"
         echo "+------------------------+"
