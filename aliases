@@ -1,0 +1,24 @@
+#!/bin/bash
+# Definition des alias de git
+alias ga="git add"
+alias gb="git branch"
+alias gcm="git commit -m"
+alias gco="git checkout"
+alias gpl="git pull"
+alias gps="git push"
+alias gm="git merge"
+alias gu="git add -u"
+
+# Definition des alias de ls
+alias l="ls"
+alias ll="ls -l"
+alias la="ls -lA"
+alias lah="ls -lAh"
+alias lh="ls -lh"
+alias ls="ls -G"
+
+# Definition des alias
+alias clean="find . -name '*~' -execdir rm {} \;"
+alias modsh="vim ~/.zshrc"
+alias purgevim="rf -f ~/.vim/tmp/*.swp ~/.vim/tmp/.*.swp"
+alias rl="source ~/.zshrc"
