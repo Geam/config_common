@@ -1,13 +1,13 @@
 # General trunc of my config
 
 ## Why a general trunc ?
-Many people use my config at school and don't agree with all the modification I
-want to do so 2 options :
-- I don't do what I want to do to not bother them
+Some people at school are using my config and don't agree with all the
+modifications I want to do so I've got 2 options :
+- I don't do what I want to not bother them
 - I do it because I really want it, sorry guys
 
-The thing is, when I find something fun which can help with the mac a 42, they
-need to update so they take the modification even if they don't want some part.
+The thing is, when I find something fun which can help with school's Mac, they
+might need to update and take the (not wanted) modifications anyway.
 
 ## Solution
 I split my config in 2
@@ -15,10 +15,10 @@ I split my config in 2
 - personnal stuff
 This repo is the global one
 
-## What did it provied ?
+## What did it provide ?
 - Some usefull alias
 - Basic configuration for zsh
-- Install script that help at school with the zfs change
+- Install script that help at school with zfs change
 
 ## How to use
 ### Clone it
@@ -39,7 +39,7 @@ $HOME/.config_common/install.sh <options>
 - -h|--help : display help
 
 ### Personnal config
-Well, it's just a repo with your file inside.
+Well, it's just a repo with your files inside.
 #### Specific files
 - install.sh : If you provied a install.sh in your personnal repo, the global
   install.sh will run it
@@ -50,13 +50,13 @@ Well, it's just a repo with your file inside.
 
 #### ln file
 In this file, you can write the symlink you want to create. Those symlink will
-be update by the global install.sh if you've got a zfs change. The syntax is
+be updated by the global install.sh if you've got a zfs change. The syntax is
 as follow :
 ```text
 <file_to_symlink>:<name_of_symlink>
 ```
-Those name will be prefix because, most of the time the file to symlink come
-from your personnal config dir and most of the time, you want it in your home.
+Those name will be prefix because most of the time the file to symlink come
+from your personnal config dir, and most of the time you want it in your home.
 The command that will be run is the following :
 ```bash
 ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
