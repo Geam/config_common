@@ -1,7 +1,7 @@
 #### PATH #####################################################################
 # yes it could had been at the end with the other stuff relate to 42 but it's
 # the PATH so I put it at begining
-if [[ "$C_SYS" == "Darwin" ]] && [[ -z "$C_SYS" ]]; then
+if [[ `uname` == "Darwin" ]] && [[ -z "$C_SYS" ]]; then
     PATH=$HOME/.brew/bin:$PATH
     export PATH
 fi
