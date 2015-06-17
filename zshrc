@@ -89,8 +89,26 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     if [[ "$OLD_HOME" != "$HOME" ]]; then
         echo $HOME > $HOME/.old_home
         $C_PATH_TO_CONFIG/install.sh -u
-        echo "+------------------------+"
-        echo "| /!\\ You've changed zsf |"
-        echo "+------------------------+"
+        echo "+------------------------------------------------+"
+        echo "|                                                |"
+        echo "|             /!\\ You've changed zsf             |"
+        echo "|                                                |"
+        echo "| If you encounter issue with binaries installed |"
+        echo "| via brew, you should use the command :         |"
+        echo "| repare_brew                                    |"
+        echo "| /!\\ This command may take some time            |"
+        echo "+------------------------------------------------+"
     fi
+
+    # reinstall brew and all the binaire installes
+    function repare_brew ()
+    {
+        brew list > $HOME/.brew_list &&
+        rm -rf $HOME/.brew && mkdir $HOME/.brew &&
+        curl -L https://github.com/Homebrew/homebrew/tarball/master |
+            tar xz --strip 1 -C $HOME/.brew &&
+        mkdir -p $HOME/Library/Caches/Homebrew &&
+        $HOME/.brew/bin/brew install `cat $HOME/.brew_list` &&
+        rm $HOME/.brew_list
+    }
 fi
