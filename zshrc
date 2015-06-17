@@ -23,16 +23,16 @@ setopt share_history
 bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 
-# Correction de la touche Delete
+# delete key
 bindkey "\e[3~"   delete-char
 
-# Autocompletion amelioree
+# better autocomplete
 autoload -U compinit && compinit
 
-# Autocompletion de type menu
+# autocomplete menu
 zstyle ':completion:*' menu select
 
-# Couleur prompt
+# prompt color
 autoload -U colors && colors
 
 #### LOAD GLOBAL STUFF ########################################################
@@ -61,7 +61,7 @@ fi
 # Well, 42 instead of mac would be more accurate but, who use a mac ?)
 
 if [[ "$C_SYS" == "Darwin" ]]; then
-    # Definition des variables
+    # 42 variables definition
     USER=`/usr/bin/whoami`
     export USER
     GROUP=`/usr/bin/id -gn $user`
@@ -100,7 +100,7 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         echo "+------------------------------------------------+"
     fi
 
-    # reinstall brew and all the binaire installes
+    # reinstall brew and all the installed binaries
     function repare_brew ()
     {
         brew list > $HOME/.brew_list &&
