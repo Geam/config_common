@@ -20,5 +20,5 @@ alias ls="ls -G"
 # Definition des alias
 alias clean="find . -name '*~' -execdir rm {} \;"
 alias modsh="vim ~/.zshrc"
-alias purgevim="rf -f ~/.vim/tmp/*.swp ~/.vim/tmp/.*.swp"
+alias purgevim="rm -rf $HOME/.vim/tmp && mkdir $HOME/.vim/tmp"
 alias rl="source ~/.zshrc"
