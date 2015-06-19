@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 NORMAL="%{$reset_color%}"
 # Definition du prompt
 precmd ()
@@ -8,7 +10,7 @@ precmd ()
     else
         COLOR3="%{$fg[red]%}"
     fi
-    ISGIT=$(git status 2> /dev/null)
+    ISGIT=$(git status --ignore-submodules 2> /dev/null)
     if [ -n "$ISGIT" ]
     then
         STATUS=$(echo "$ISGIT" | grep "modified:\|renamed:\|new file:\|deleted:" | grep -v ".vim/bundle\|untracked")
@@ -20,7 +22,7 @@ precmd ()
             REMOTE_EXIST=$(git branch -a | grep remotes/origin/$BRANCH)
             if [ -n "$REMOTE_EXIST" ]
             then
-                REMOTE=$(git diff origin/$BRANCH)
+                REMOTE=$(git diff --ignore-submodules origin/$BRANCH)
                 if [ -n "$REMOTE" ]
                 then
                     COLOR="%{$fg[yellow]%}"
