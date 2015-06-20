@@ -61,3 +61,11 @@ The command that will be run is the following :
 ```bash
 ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
 ```
+
+#### Usage example
+```bash
+cd
+git clone git@github.com:Geam/config_common.git .config_common
+cd .config_common
+./install.sh -uf -p git@github.com:Geam/config_personnal.git
+```
