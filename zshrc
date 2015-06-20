@@ -73,8 +73,8 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
     # Alt-arrow to move from word to word
-    bindkey "^[[1;3C" forward-word
-    bindkey "^[[1;3D" backward-word
+    bindkey "^[^[[C" forward-word
+    bindkey "^[^[[D" backward-word
 
     # add completion provied by bin installed via brew
     if [[ -d "$HOME/.brew/share/zsh/site-functions/" ]]; then
