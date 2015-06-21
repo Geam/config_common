@@ -60,7 +60,7 @@ if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/aliases" ]]; then
 fi
 
 # Add personnal scripts to path
-if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/scripts" ]]; then
+if [[ -d "$C_PATH_TO_PERSONNAL_CONFIG/scripts" ]]; then
     PATH="$C_PATH_TO_PERSONNAL_CONFIG/scripts:$PATH"
 fi
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # PATHS
-CONF_PATH=$HOME/.config_common
-PERS_PATH=$HOME/.config_personnal
+export CONF_PATH=$HOME/.config_common
+export PERS_PATH=$HOME/.config_personnal
 
 function usage()
 {
