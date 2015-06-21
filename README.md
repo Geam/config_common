@@ -62,7 +62,7 @@ The command that will be run is the following :
 ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
 ```
 
-#### Usage example
+#### Usage example with personnal configuration
 ```bash
 cd
 git clone git@github.com:Geam/config_common.git .config_common
