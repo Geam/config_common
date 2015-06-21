@@ -1,15 +1,15 @@
-#### PATH #####################################################################
-# yes it could had been at the end with the other stuff relate to 42 but it's
-# the PATH so I put it at begining
-if [[ `uname` == "Darwin" ]] && [[ -z "$C_SYS" ]]; then
-    PATH=$HOME/.brew/bin:$PATH
-    export PATH
-fi
-
 #### CONFIG SPECIFIC VARIABLES ################################################
 C_SYS=`uname`
 C_PATH_TO_CONFIG=$HOME/.config_common
 C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
+
+#### PATH #####################################################################
+# yes it could had been at the end with the other stuff relate to 42 but it's
+# the PATH so I put it at begining
+if [[ `$C_SYS` == "Darwin" ]]; then
+    PATH=$HOME/.brew/bin:$C_PATH_TO_CONFIG/scripts:$PATH
+    export PATH
+fi
 
 #### ZSH CONFIG ###############################################################
 # zsh history
@@ -48,13 +48,20 @@ fi
 source $C_PATH_TO_CONFIG/aliases
 
 #### PERSONNAL STUFF ##########################################################
+
 # Load personnal zshrc
 if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/zshrc" ]]; then
     source "$C_PATH_TO_PERSONNAL_CONFIG/zshrc"
 fi
+
 # Load personnal aliases
 if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/aliases" ]]; then
     source "$C_PATH_TO_PERSONNAL_CONFIG/aliases"
+fi
+
+# Add personnal scripts to path
+if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/script" ]]; then
+    PATH="$C_PATH_TO_PERSONNAL_CONFIG/script:$PATH"
 fi
 
 #### MAC SPECIFIC STUFF #######################################################
