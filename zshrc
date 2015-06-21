@@ -6,8 +6,8 @@ C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
 #### PATH #####################################################################
 # yes it could had been at the end with the other stuff relate to 42 but it's
 # the PATH so I put it at begining
-if [[ `$C_SYS` == "Darwin" ]]; then
-    PATH=$HOME/.brew/bin:$C_PATH_TO_CONFIG/scripts:$PATH
+if [[ "$C_SYS" = "Darwin" ]]; then
+    PATH=$HOME/.brew/bin:$PATH
     export PATH
 fi
 
@@ -60,8 +60,8 @@ if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/aliases" ]]; then
 fi
 
 # Add personnal scripts to path
-if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/script" ]]; then
-    PATH="$C_PATH_TO_PERSONNAL_CONFIG/script:$PATH"
+if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/scripts" ]]; then
+    PATH="$C_PATH_TO_PERSONNAL_CONFIG/scripts:$PATH"
 fi
 
 #### MAC SPECIFIC STUFF #######################################################
@@ -117,5 +117,41 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         mkdir -p $HOME/Library/Caches/Homebrew &&
         $HOME/.brew/bin/brew install `cat $HOME/.brew_list` &&
         rm $HOME/.brew_list
+    }
+
+    function next ()
+    {
+        nb=$(basename `pwd` | grep "ex")
+        if [[ -n "$nb" ]]; then
+            if [[ -n "$1" ]]; then inc=$1; else inc=1; fi
+            nb=$(expr `echo $nb | td -d "[a-z]"` + $inc)
+            if [[ $nb -lt 10 ]]
+            then
+                dir="../ex0$nb"
+            else
+                dir="../ex$nb"
+            fi
+            mkdir -p $dir
+            cd $dir
+        fi
+    }
+
+    function prev ()
+    {
+        nb=$(basename `pwd` | grep "ex")
+        if [[ -n "$nb" ]]; then
+            if [[ -n "$1" ]]; then dec=$1; else dec=1; fi
+            nb=$(expr `echo $nb | td -d "[a-z]"` - $dec)
+            if [[ $nb -lt 0 ]]
+            then
+                dir="../ex00"
+            elif [[ $nb -lt 10 ]]
+            then
+                dir="../ex0$nb"
+            else
+                dir="../ex$nb"
+            fi
+            cd $dir
+        fi
     }
 fi
