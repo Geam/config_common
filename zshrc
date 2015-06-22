@@ -1,7 +1,7 @@
 #### CONFIG SPECIFIC VARIABLES ################################################
-C_SYS=`uname`
-C_PATH_TO_CONFIG=$HOME/.config_common
-C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
+export C_SYS=`uname`
+export C_PATH_TO_CONFIG=$HOME/.config_common
+export C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
 
 #### PATH #####################################################################
 # yes it could had been at the end with the other stuff relate to 42 but it's
@@ -124,7 +124,7 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         nb=$(basename `pwd` | grep "ex")
         if [[ -n "$nb" ]]; then
             if [[ -n "$1" ]]; then inc=$1; else inc=1; fi
-            nb=$(expr `echo $nb | td -d "[a-z]"` + $inc)
+            nb=$(expr `echo $nb | tr -d "[a-z]"` + $inc)
             if [[ $nb -lt 10 ]]
             then
                 dir="../ex0$nb"
@@ -141,7 +141,7 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         nb=$(basename `pwd` | grep "ex")
         if [[ -n "$nb" ]]; then
             if [[ -n "$1" ]]; then dec=$1; else dec=1; fi
-            nb=$(expr `echo $nb | td -d "[a-z]"` - $dec)
+            nb=$(expr `echo $nb | tr -d "[a-z]"` - $dec)
             if [[ $nb -lt 0 ]]
             then
                 dir="../ex00"
