@@ -15,10 +15,15 @@ alias ll="ls -l"
 alias la="ls -lA"
 alias lah="ls -lAh"
 alias lh="ls -lh"
-alias ls="ls -G"
 
 # Definition des alias
 alias clean="find . -name '*~' -execdir rm {} \;"
 alias modsh="vim ~/.zshrc"
 alias purgevim="rm -rf $HOME/.vim/tmp && mkdir $HOME/.vim/tmp"
 alias rl="source ~/.zshrc"
+
+if [[ "$C_SYS" = "Darwin" ]]; then
+    alias ls="ls -G"
+else
+    alias ls="ls --color"
+fi
