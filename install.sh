@@ -14,7 +14,11 @@ function do_ln()
 {
     if [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -f "$PERS_PATH/$1" ]]; then
         if [[ -e "$HOME/$2" ]]; then
-            rm -rf "$HOME/$2"
+            if [[ "$INS_FORCE" == "OK" ]]; then
+                rm -rf "$HOME/$2"
+            else
+                mv "$HOME/$2" "$HOME/$2.back"
+            fi
         fi
         ln -s "$PERS_PATH/$1" "$HOME/$2"
     fi
