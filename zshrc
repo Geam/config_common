@@ -4,6 +4,8 @@ export C_PATH_TO_CONFIG=$HOME/.config_common
 export C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
 
 #### PATH #####################################################################
+PATH=$HOME/bin:$PATH
+
 # yes it could had been at the end with the other stuff relate to 42 but it's
 # the PATH so I put it at begining
 if [[ "$C_SYS" = "Darwin" ]]; then
