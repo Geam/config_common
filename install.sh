@@ -70,6 +70,14 @@ do
     shift
 done
 
+if [[ `uname` == "Darwin" ]]; then
+    BREW_CACHE="$HOME/Library/Caches/Homebrew"
+    if [[ ! -e "$BREW_CACHE" ]]; then
+        mkdir "$BREW_CACHE"
+    fi
+    brew update
+fi
+
 if [[ -n "$INS_PERS" ]]; then
     if [[ -e "$PERS_PATH" ]];
     then
@@ -94,6 +102,8 @@ fi
 if [[ -n "$INS_UP_LN" ]]; then
     rm -rf $HOME/.zshrc
     ln -s $CONF_PATH/zshrc $HOME/.zshrc
+    rm -rf $HOME/.brew/share/zsh/site-functions/_brew
+    ln -s $CONF_PATH/_brew $HOME/.brew/share/zsh/site-functions/_brew
     if [[ -f "$PERS_PATH/ln" ]]; then
         OIFS=$IFS
         for FILE in `cat "$PERS_PATH/ln"`

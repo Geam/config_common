@@ -3,7 +3,7 @@ export C_SYS=`uname`
 export C_PATH_TO_CONFIG=$HOME/.config_common
 export C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
 
-#### PATH #####################################################################
+#### PATH and FPATH ###########################################################
 PATH=$HOME/bin:$PATH
 
 # yes it could had been at the end with the other stuff relate to 42 but it's
@@ -11,6 +11,12 @@ PATH=$HOME/bin:$PATH
 if [[ "$C_SYS" = "Darwin" ]]; then
     PATH=$HOME/.brew/bin:$PATH
     export PATH
+
+    # add completion provied by bin installed via brew
+    if [[ -d "$HOME/.brew/share/zsh/site-functions" ]]; then
+        fpath=($HOME/.brew/share/zsh/site-functions $fpath)
+    fi
+
 fi
 
 #### ZSH CONFIG ###############################################################
@@ -89,11 +95,6 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     # Alt-arrow to move from word to word
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
-
-    # add completion provied by bin installed via brew
-    if [[ -d "$HOME/.brew/share/zsh/site-functions/" ]]; then
-        fpath=($HOME/.brew/share/zsh/site-functions/ $fpath)
-    fi
 
     # update symlink in case of zsf change
     if [[ ! -f $HOME/.old_home ]]; then
