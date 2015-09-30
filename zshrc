@@ -82,7 +82,7 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
     # Homebrew cache directory
-    if [[ ! -f "$HOME/Library/Caches/Homebrew" ]]; then
+    if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
         mkdir "$HOME/Library/Caches/Homebrew"
     fi
 
