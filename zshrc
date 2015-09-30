@@ -81,6 +81,11 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     # fucking mac and their /Volume/<hdd_name>
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
+    # Homebrew cache directory
+    if [[ ! -f "$HOME/Library/Caches/Homebrew" ]]; then
+        mkdir "$HOME/Library/Caches/Homebrew"
+    fi
+
     # Alt-arrow to move from word to word
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
