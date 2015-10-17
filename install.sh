@@ -20,7 +20,7 @@ function do_ln()
                 mv "$HOME/$2" "$HOME/$2.back"
             fi
         fi
-        ln -s "$PERS_PATH/$1" "$HOME/$2"
+        ln -sf "$PERS_PATH/$1" "$HOME/$2"
     fi
 }
 
@@ -102,8 +102,6 @@ fi
 if [[ -n "$INS_UP_LN" ]]; then
     rm -rf $HOME/.zshrc
     ln -s $CONF_PATH/zshrc $HOME/.zshrc
-    rm -rf $HOME/.brew/share/zsh/site-functions/_brew
-    ln -s $CONF_PATH/_brew $HOME/.brew/share/zsh/site-functions/_brew
     if [[ -f "$PERS_PATH/ln" ]]; then
         OIFS=$IFS
         for FILE in `cat "$PERS_PATH/ln"`
@@ -112,5 +110,9 @@ if [[ -n "$INS_UP_LN" ]]; then
             do_ln $FILE
             IFS=$OIFS
         done
+    fi
+    if [[ `uname` == "Darwin" ]]; then
+        rm -rf $HOME/.brew/share/zsh/site-functions/_brew
+        ln -s $CONF_PATH/_brew $HOME/.brew/share/zsh/site-functions/_brew
     fi
 fi
