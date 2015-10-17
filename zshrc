@@ -21,7 +21,7 @@ fi
 
 #### ZSH CONFIG ###############################################################
 # zsh history
-HISTFILE=~/.zshrc_history
+HISTFILE=~/.zsh_history
 SAVEHIST=5000
 HISTSIZE=5000
 setopt inc_append_history

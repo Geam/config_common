@@ -74,7 +74,7 @@ _1st_arguments=(
   'update:fetch latest version of Homebrew and all formulae'
   'upgrade:upgrade outdated formulae'
   'uses:show formulae which depend on a formula'
-  `brew commands --quiet --include-aliases`
+  `brew commands --quiet --include-aliases | grep -v "^audit\|cat\|cleanup\|commands\|config\|create\|deps\|desc\|doctor\|edit\|fetch\|gist-logs\|home\|info\|info\|instal\|instal\|leaves\|link\|list\|log\|missing\|migrate\|outdated\|pin\|postinstall\|prune\|remove\|search\|switch\|tap\|tap-pin\|tap-unpin\|test-bot\|uninstall\|unlink\|unpin\|untap\|update\|uses$"`
 )
 
 local expl
