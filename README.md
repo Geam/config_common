@@ -41,11 +41,14 @@ $HOME/.config_common/install.sh <options>
 ### Personnal config
 Well, it's just a repo with your files inside.
 #### Specific files
+- brew_apps : contain application you would like to install with brew, one
+  application per line
+- brew_tap : contain list of depot to tap with brew, one depot per line
 - install.sh : If you provied a install.sh in your personnal repo, the global
   install.sh will run it
 - ln : the global install.sh will make symbolic link, cf "ln file" below
-- prompt : it should only contain the prompt you wich to use, if not provied,
-  the general one will be use
+- prompt : it should only contain the prompt you would like to use, if not
+  provied, the general one will be use
 - zshrc : the global zshrc will source it at the end of it's own execution
 
 #### ln file
@@ -55,17 +58,25 @@ as follow :
 ```text
 <file_to_symlink>:<name_of_symlink>
 ```
-Those name will be prefix because most of the time the file to symlink come
-from your personnal config dir, and most of the time you want it in your home.
-The command that will be run is the following :
+If those name begin with '/', they will be used as given, if not, those names
+will be prefixed. In the second case, the command that will be run is the
+following :
 ```bash
 ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
 ```
+Note that every time you start the install script with the -u flag, the symblink
+will be updated
 
-#### Usage example with personnal configuration
+#### Usage example
+##### Installation with personal configuration
 ```bash
 cd
 git clone git@github.com:Geam/config_common.git .config_common
 cd .config_common
 ./install.sh -u -f -p git@github.com:Geam/config_personnal.git
+```
+##### Update symbolic link
+```bash
+cd $HOME/.config_common
+./install.sh -u -f
 ```

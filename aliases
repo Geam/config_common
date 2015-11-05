@@ -18,9 +18,8 @@ alias lh="ls -lh"
 
 # Definition des alias
 alias clean="find . -name '*~' -execdir rm {} \;"
-alias modsh="vim ~/.zshrc"
-alias purgevim="rm -rf $HOME/.vim/tmp && mkdir $HOME/.vim/tmp"
 alias rl="source ~/.zshrc"
+alias update_symlink="$C_PATH_TO_CONFIG/install.sh -u -f"
 
 if [[ "$C_SYS" = "Darwin" ]]; then
     alias ls="ls -G"
