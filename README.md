@@ -36,6 +36,7 @@ $HOME/.config_common/install.sh <options>
 - -f|--force : Doesn't ask question, do it
 - -p|--personnal <url_to_personnal_git_repo> : you need to pass the url to your
   personnal config repo and it will clone it
+- -b : update brew, tap repo if any and install applications if any
 - -h|--help : display help
 
 ### Personnal config
@@ -73,7 +74,7 @@ will be updated
 cd
 git clone git@github.com:Geam/config_common.git .config_common
 cd .config_common
-./install.sh -u -f -p git@github.com:Geam/config_personnal.git
+./install.sh -u -b -f -p git@github.com:Geam/config_personnal.git
 ```
 ##### Update symbolic link
 ```bash
