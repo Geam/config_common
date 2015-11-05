@@ -122,7 +122,15 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         rm -rf $HOME/.brew && mkdir $HOME/.brew &&
         curl -L https://github.com/Homebrew/homebrew/tarball/master |
             tar xz --strip 1 -C $HOME/.brew &&
-        mkdir -p $HOME/Library/Caches/Homebrew &&
+        mkdir -p $HOME/Library/Caches/Homebrew
+		if [[ -f $C_PATH_TO_PERSONNAL_CONFIG/brew_tap ]]; then
+			for line in `cat $C_PATH_TO_PERSONNAL_CONFIG/brew_tap`
+			do
+				if [[ ${line:0:1} != "#" ]]; then
+					$HOME/.brew/bin/brew tap $line
+				fi
+			done
+		fi
         $HOME/.brew/bin/brew install `cat $HOME/.brew_list` &&
         rm $HOME/.brew_list
     }
