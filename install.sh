@@ -12,15 +12,30 @@ function usage()
 
 function do_ln()
 {
-    if [[ -n "$1" ]] && [[ -n "$2" ]] && [[ -f "$PERS_PATH/$1" ]]; then
-        if [[ -e "$HOME/$2" ]]; then
+    unset SRC DEST
+    if [[ -n "$1" ]]; then
+        if [[ ${1:0:1} == "/" ]]; then
+            SRC=$1
+        else
+            SRC="$PERS_PATH/$1"
+        fi
+    fi
+    if [[ -n "$2" ]]; then
+        if [[ ${2:0:1} == "/" ]]; then
+            DEST=$2
+        else
+            DEST="$HOME/$2"
+        fi
+    fi
+    if [[ -n "$SRC" ]] && [[ -n "$DEST" ]] && [[ -f "$SRC" ]]; then
+        if [[ -e "$DEST" ]]; then
             if [[ "$INS_FORCE" == "OK" ]]; then
-                rm -rf "$HOME/$2"
+                rm -rf "$DEST"
             else
-                mv "$HOME/$2" "$HOME/$2.back"
+                mv "$DEST" "$DEST.back"
             fi
         fi
-        ln -sf "$PERS_PATH/$1" "$HOME/$2"
+        ln -sf "$SRC" "$DEST"
     fi
 }
 
@@ -73,9 +88,25 @@ done
 if [[ `uname` == "Darwin" ]]; then
     BREW_CACHE="$HOME/Library/Caches/Homebrew"
     if [[ ! -e "$BREW_CACHE" ]]; then
-        mkdir "$BREW_CACHE"
+        mkdir -p "$BREW_CACHE"
     fi
-    brew update
+    /usr/local/bin/brew update
+    if [[ -f $PERS_PATH/brew_tap ]]; then
+        for line in `cat $PERS_PATH/brew_tap`
+        do
+            if [[ ${line:0:1} != "#" ]]; then
+                $HOME/.brew/bin/brew tap $line
+            fi
+        done
+    fi
+    if [[ -f $PERS_PATH/brew_apps ]]; then
+        $HOME/.brew/bin/brew install `cat $PERS_PATH/brew_apps` ||
+        for line in `cat $PERS_PATH/brew_apps`
+        do
+            $HOME/.brew/bin/brew install $line ||
+                echo "Error while installing $line"
+        done
+    fi
 fi
 
 if [[ -n "$INS_PERS" ]]; then
@@ -101,7 +132,7 @@ fi
 
 if [[ -n "$INS_UP_LN" ]]; then
     rm -rf $HOME/.zshrc
-    ln -s $CONF_PATH/zshrc $HOME/.zshrc
+    do_ln $CONF_PATH/zshrc $HOME/.zshrc
     if [[ -f "$PERS_PATH/ln" ]]; then
         OIFS=$IFS
         for FILE in `cat "$PERS_PATH/ln"`
