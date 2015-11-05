@@ -76,6 +76,9 @@ do
             -u)
                 INS_UP_LN="OK"
                 ;;
+            -b)
+                BREW="OK"
+                ;;
             *)
                 echo "Unknown option $1"
                 usage
@@ -85,7 +88,7 @@ do
     shift
 done
 
-if [[ `uname` == "Darwin" ]]; then
+if [[ `uname` == "Darwin" ]] && [[ "$BREW" == "OK" ]]; then
     BREW_CACHE="$HOME/Library/Caches/Homebrew"
     if [[ ! -e "$BREW_CACHE" ]]; then
         mkdir -p "$BREW_CACHE"
@@ -132,7 +135,9 @@ fi
 
 if [[ -n "$INS_UP_LN" ]]; then
     rm -rf $HOME/.zshrc
-    do_ln $CONF_PATH/zshrc $HOME/.zshrc
+    cd
+    ln -sf .config_common/zshrc .zshrc
+    cd - > /dev/null
     if [[ -f "$PERS_PATH/ln" ]]; then
         OIFS=$IFS
         for FILE in `cat "$PERS_PATH/ln"`
