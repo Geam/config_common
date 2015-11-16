@@ -52,6 +52,10 @@ else
     source "$C_PATH_TO_CONFIG/prompt"
 fi
 
+# add prompt_hook to precmd hook list
+[[ -z $precmd_functions ]] && precmd_functions=()
+precmd_functions=($precmd_functions prompt_hook)
+
 # Load global aliases
 source $C_PATH_TO_CONFIG/aliases
 

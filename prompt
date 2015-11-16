@@ -2,7 +2,7 @@
 
 NORMAL="%{$reset_color%}"
 # Definition du prompt
-precmd ()
+prompt_hook ()
 {
     if [ $? -eq 0 ]
     then
