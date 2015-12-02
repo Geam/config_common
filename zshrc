@@ -91,10 +91,11 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     # fucking mac and their /Volume/<hdd_name>
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
+    # not used anymore
     # sometimes, the caches directory is not created
-    if [[ ! -e /tmp/library.$USER/Caches ]]; then
-        mkdir /tmp/Library.$USER/Caches
-    fi
+    #if [[ ! -e /tmp/library.$USER/Caches ]]; then
+    #    mkdir /tmp/Library.$USER/Caches
+    #fi
 
     # Homebrew cache directory
     if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
