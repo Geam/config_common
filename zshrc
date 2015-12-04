@@ -92,15 +92,10 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
     # not used anymore
-    # sometimes, the caches directory is not created
-    #if [[ ! -e /tmp/library.$USER/Caches ]]; then
-    #    mkdir /tmp/Library.$USER/Caches
-    #fi
-
-	# Create Caches dir if not create
-	if [[ ! -e /tmp/library.$USER/Caches ]]; then
-		mkdit /tmp/library.$USER/Caches
-	fi
+     sometimes, the caches directory is not created
+    if [[ ! -e /tmp/library.$USER/Caches ]]; then
+        mkdir /tmp/Library.$USER/Caches
+    fi
 
     # Homebrew cache directory
     if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
