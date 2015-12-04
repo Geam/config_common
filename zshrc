@@ -97,6 +97,11 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     #    mkdir /tmp/Library.$USER/Caches
     #fi
 
+	# Create Caches dir if not create
+	if [[ ! -e /tmp/library.$USER/Caches ]]; then
+		mkdit /tmp/library.$USER/Caches
+	fi
+
     # Homebrew cache directory
     if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
         mkdir "$HOME/Library/Caches/Homebrew"
