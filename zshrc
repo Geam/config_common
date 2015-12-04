@@ -91,9 +91,14 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     # fucking mac and their /Volume/<hdd_name>
     cd "`echo $PWD | sed 's:/Volumes/Data::'`"
 
-    # sometimes, the caches directory is not created
+    # sometimes, the caches directory is not created and it's symlink is fucked
+    # up
     if [[ ! -e /tmp/library.$USER/Caches ]]; then
         mkdir /tmp/Library.$USER/Caches
+        rm -rf $HOME/Library/Caches
+        cd $HOME/Library
+        ln -s /tmp/library.$USER/Caches
+        cd - 2>&1 > /dev/null
     fi
 
     # Homebrew cache directory
