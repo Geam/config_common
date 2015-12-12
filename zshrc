@@ -1,7 +1,10 @@
 #### CONFIG SPECIFIC VARIABLES ################################################
 export C_SYS=`uname`
+if [[ -e /goinfre ]]; then
+    export C_SCHOOL=YES
+fi
 export C_PATH_TO_CONFIG=$HOME/.config_common
-export C_PATH_TO_PERSONNAL_CONFIG=$HOME/.config_personnal
+export C_PATH_TO_PERSONAL_CONFIG=$HOME/.config_personal
 
 #### PATH and FPATH ###########################################################
 PATH=$HOME/bin:$PATH
@@ -45,9 +48,9 @@ autoload -U colors && colors
 
 #### LOAD GLOBAL STUFF ########################################################
 # Load prompt file
-if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/prompt" ]];
+if [[ -f "$C_PATH_TO_PERSONAL_CONFIG/prompt" ]];
 then
-    source "$C_PATH_TO_PERSONNAL_CONFIG/prompt"
+    source "$C_PATH_TO_PERSONAL_CONFIG/prompt"
 else
     source "$C_PATH_TO_CONFIG/prompt"
 fi
@@ -59,27 +62,34 @@ precmd_functions=($precmd_functions prompt_hook)
 # Load global aliases
 source $C_PATH_TO_CONFIG/aliases
 
-#### PERSONNAL STUFF ##########################################################
+#### PERSONAL STUFF ###########################################################
 
-# Load personnal zshrc
-if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/zshrc" ]]; then
-    source "$C_PATH_TO_PERSONNAL_CONFIG/zshrc"
+# Load personal zshrc
+if [[ -f "$C_PATH_TO_PERSONAL_CONFIG/zshrc" ]]; then
+    source "$C_PATH_TO_PERSONAL_CONFIG/zshrc"
 fi
 
-# Load personnal aliases
-if [[ -f "$C_PATH_TO_PERSONNAL_CONFIG/aliases" ]]; then
-    source "$C_PATH_TO_PERSONNAL_CONFIG/aliases"
+# Load personal aliases
+if [[ -f "$C_PATH_TO_PERSONAL_CONFIG/aliases" ]]; then
+    source "$C_PATH_TO_PERSONAL_CONFIG/aliases"
 fi
 
-# Add personnal scripts to path
-if [[ -d "$C_PATH_TO_PERSONNAL_CONFIG/scripts" ]]; then
-    PATH="$C_PATH_TO_PERSONNAL_CONFIG/scripts:$PATH"
+# Add personal scripts to path
+if [[ -d "$C_PATH_TO_PERSONAL_CONFIG/scripts" ]]; then
+    PATH="$C_PATH_TO_PERSONAL_CONFIG/scripts:$PATH"
 fi
 
 #### MAC SPECIFIC STUFF #######################################################
-# Well, 42 instead of mac would be more accurate but, who use a mac ?)
 
-if [[ "$C_SYS" == "Darwin" ]]; then
+if [[ $C_SYS == "Darwin" ]]; then
+    # Alt-arrow to move from word to word
+    bindkey "^[^[[C" forward-word
+    bindkey "^[^[[D" backward-word
+fi
+
+#### 42 SCHOOL SPECIFIC STUFF #################################################
+
+if [[ -n "$C_SCHOOL" ]]; then
     # 42 variables definition
     USER=`/usr/bin/whoami`
     export USER
@@ -105,10 +115,6 @@ if [[ "$C_SYS" == "Darwin" ]]; then
     if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
         mkdir "$HOME/Library/Caches/Homebrew"
     fi
-
-    # Alt-arrow to move from word to word
-    bindkey "^[^[[C" forward-word
-    bindkey "^[^[[D" backward-word
 
     # update symlink in case of zsf change
     if [[ ! -f $HOME/.old_home ]]; then
@@ -137,8 +143,8 @@ if [[ "$C_SYS" == "Darwin" ]]; then
         curl -L https://github.com/Homebrew/homebrew/tarball/master |
             tar xz --strip 1 -C $HOME/.brew &&
         mkdir -p $HOME/Library/Caches/Homebrew
-		if [[ -f $C_PATH_TO_PERSONNAL_CONFIG/brew_tap ]]; then
-			for line in `cat $C_PATH_TO_PERSONNAL_CONFIG/brew_tap`
+		if [[ -f $C_PATH_TO_PERSONAL_CONFIG/brew_tap ]]; then
+			for line in `cat $C_PATH_TO_PERSONAL_CONFIG/brew_tap`
 			do
 				if [[ ${line:0:1} != "#" ]]; then
 					$HOME/.brew/bin/brew tap $line

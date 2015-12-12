@@ -12,7 +12,7 @@ might need to update and take the (not wanted) modifications anyway.
 ## Solution
 I split my config in 2
 - global stuff for everyone
-- personnal stuff
+- personal stuff
 This repo is the global one
 
 ## What did it provide ?
@@ -34,18 +34,18 @@ $HOME/.config_common/install.sh <options>
 ### Options
 - -u : Update the symbolic link
 - -f|--force : Doesn't ask question, do it
-- -p|--personnal <url_to_personnal_git_repo> : you need to pass the url to your
-  personnal config repo and it will clone it
+- -p|--personal <url_to_personal_git_repo> : you need to pass the url to your
+  personal config repo and it will clone it
 - -b : update brew, tap repo if any and install applications if any
 - -h|--help : display help
 
-### Personnal config
+### Personal config
 Well, it's just a repo with your files inside.
 #### Specific files
 - brew_apps : contain application you would like to install with brew, one
   application per line
 - brew_tap : contain list of depot to tap with brew, one depot per line
-- install.sh : If you provied a install.sh in your personnal repo, the global
+- install.sh : If you provied a install.sh in your personal repo, the global
   install.sh will run it
 - ln : the global install.sh will make symbolic link, cf "ln file" below
 - prompt : it should only contain the prompt you would like to use, if not
@@ -63,7 +63,7 @@ If those name begin with '/', they will be used as given, if not, those names
 will be prefixed. In the second case, the command that will be run is the
 following :
 ```bash
-ln -s $HOME/.config_personnal/<file_to_symlink> $HOME/<name_of_symlink>
+ln -s $HOME/.config_personal/<file_to_symlink> $HOME/<name_of_symlink>
 ```
 Note that every time you start the install script with the -u flag, the symblink
 will be updated
@@ -74,10 +74,14 @@ will be updated
 cd
 git clone git@github.com:Geam/config_common.git .config_common
 cd .config_common
-./install.sh -u -b -f -p git@github.com:Geam/config_personnal.git
+./install.sh -u -b -f -p git@github.com:Geam/config_personal.git
 ```
 ##### Update symbolic link
 ```bash
 cd $HOME/.config_common
 ./install.sh -u -f
 ```
+## Changelog
+- 12/12/2015 :
+  - correct few bug in install.sh
+  - correct typo (personnal instead of personal)
