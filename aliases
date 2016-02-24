@@ -20,6 +20,7 @@ alias lh="ls -lh"
 alias clean="find . -name '*~' -execdir rm {} \;"
 alias rl="source ~/.zshrc"
 alias update_symlink="$C_PATH_TO_CONFIG/install.sh -u -f"
+alias meteo="curl -4 'http://wttr.in/paris'"
 
 if [[ "$C_SYS" = "Darwin" ]]; then
     alias ls="ls -G"
