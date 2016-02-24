@@ -112,9 +112,9 @@ if [[ -n "$C_SCHOOL" ]]; then
     #fi
 
     # Homebrew cache directory
-    if [[ ! -e "$HOME/Library/Caches/Homebrew" ]]; then
-        mkdir "$HOME/Library/Caches/Homebrew"
-    fi
+    export HOMEBREW_CACHE=/tmp/$USER/brew_caches
+    export HOMEBREW_TEMP=/tmp/$USER/brew_temp
+    mkdir -p $HOMEBREW_CACHE $HOMEBREW_TEMP
 
     # update symlink in case of zsf change
     if [[ ! -f $HOME/.old_home ]]; then
