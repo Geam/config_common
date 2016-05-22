@@ -4,9 +4,10 @@ alias ga="git add"
 alias gb="git branch"
 alias gcm="git commit -m"
 alias gco="git checkout"
+alias gf="git fetch"
+alias gm="git merge"
 alias gpl="git pull"
 alias gps="git push"
-alias gm="git merge"
 alias gu="git add -u"
 
 # Definition des alias de ls
