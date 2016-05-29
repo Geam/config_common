@@ -210,7 +210,7 @@ if [[ -n "$C_SCHOOL" ]]; then
         do
             if [[ `head -1 "$file"` != '/* ************************************************************************** */' ]];
             then
-                vim -u /usr/share/vim/vimrc +Stdheader +wq $file
+                /usr/bin/vim -u /usr/share/vim/vimrc +Stdheader +wq $file
             fi
         done
     }
