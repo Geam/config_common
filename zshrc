@@ -139,20 +139,20 @@ if [[ -n "$C_SCHOOL" ]]; then
     function repare_brew ()
     {
         brew list > $HOME/.brew_list &&
-        rm -rf $HOME/.brew && mkdir $HOME/.brew &&
-        curl -L https://github.com/Homebrew/homebrew/tarball/master |
-            tar xz --strip 1 -C $HOME/.brew &&
-        mkdir -p $HOME/Library/Caches/Homebrew
-		if [[ -f $C_PATH_TO_PERSONAL_CONFIG/brew_tap ]]; then
-			for line in `cat $C_PATH_TO_PERSONAL_CONFIG/brew_tap`
-			do
-				if [[ ${line:0:1} != "#" ]]; then
-					$HOME/.brew/bin/brew tap $line
-				fi
-			done
-		fi
+            rm -rf $HOME/.brew && mkdir $HOME/.brew &&
+            curl -L https://github.com/Homebrew/homebrew/tarball/master |
+        tar xz --strip 1 -C $HOME/.brew &&
+            mkdir -p $HOME/Library/Caches/Homebrew
+        if [[ -f $C_PATH_TO_PERSONAL_CONFIG/brew_tap ]]; then
+            for line in `cat $C_PATH_TO_PERSONAL_CONFIG/brew_tap`
+            do
+                if [[ ${line:0:1} != "#" ]]; then
+                    $HOME/.brew/bin/brew tap $line
+                fi
+            done
+        fi
         $HOME/.brew/bin/brew install `cat $HOME/.brew_list` &&
-        rm $HOME/.brew_list
+            rm $HOME/.brew_list
     }
 
     function next ()
@@ -189,5 +189,29 @@ if [[ -n "$C_SCHOOL" ]]; then
             fi
             cd $dir
         fi
+    }
+
+    function remove_header ()
+    {
+        for file in `find . -name "*.[ch]"`
+        do
+            if [[ `head -1 "$file"` == '/* ************************************************************************** */' ]];
+            then
+                nb_line=$(echo "`cat $file | wc -l` - 12" | bc)
+                mv "$file" "$file.back"
+                tail -"$nb_line" "$file.back" > "$file"
+            fi
+        done
+    }
+
+    function add_header ()
+    {
+        for file in `find . -name "*.[ch]"`
+        do
+            if [[ `head -1 "$file"` != '/* ************************************************************************** */' ]];
+            then
+                vim -u /usr/share/vim/vimrc +Stdheader +wq $file
+            fi
+        done
     }
 fi
