@@ -114,7 +114,24 @@ if [[ -n "$C_SCHOOL" ]]; then
     # Homebrew cache directory
     export HOMEBREW_CACHE=/tmp/$USER/brew_caches
     export HOMEBREW_TEMP=/tmp/$USER/brew_temp
-    mkdir -p $HOMEBREW_CACHE $HOMEBREW_TEMP
+    HOMEBREW_LOCKS=/tmp/$USER/brew_locks
+    HOMEBREW_LOCKS_HOME=/$HOME/.brew/Library/Locks
+    if [[ ! -d $HOMEBREW_CACHE ]]; then
+        mkdir -p $HOMEBREW_CACHE
+    fi
+    if [[ ! -d $HOMEBREW_TEMP ]]; then
+        mkdir -p $HOMEBREW_TEMP
+    fi
+    if [[ ! -L $HOMEBREW_LOCKS_HOME ]]; then
+        if [[ ! -d $HOMEBREW_LOCKS ]]; then
+            mkdir -p $HOMEBREW_LOCKS
+        fi
+        if [[ -d $HOMEBREW_LOCKS_HOME ]]; then
+            rm -r $HOMEBREW_LOCKS_HOME
+        fi
+        ln -s $HOMEBREW_LOCKS $HOMEBREW_LOCKS_HOME
+    fi
+    unset HOMEBREW_LOCKS_HOME HOMEBREW_LOCKS
 
     # update symlink in case of zsf change
     if [[ ! -f $HOME/.old_home ]]; then
