@@ -122,55 +122,16 @@ if [[ -n "$C_SCHOOL" ]]; then
     if [[ ! -d $HOMEBREW_TEMP ]]; then
         mkdir -p $HOMEBREW_TEMP
     fi
+    if [[ ! -d $HOMEBREW_LOCKS ]]; then
+        mkdir -p $HOMEBREW_LOCKS
+    fi
     if [[ ! -L $HOMEBREW_LOCKS_HOME ]]; then
-        if [[ ! -d $HOMEBREW_LOCKS ]]; then
-            mkdir -p $HOMEBREW_LOCKS
-        fi
         if [[ -d $HOMEBREW_LOCKS_HOME ]]; then
             rm -r $HOMEBREW_LOCKS_HOME
         fi
         ln -s $HOMEBREW_LOCKS $HOMEBREW_LOCKS_HOME
     fi
     unset HOMEBREW_LOCKS_HOME HOMEBREW_LOCKS
-
-    # update symlink in case of zsf change
-    if [[ ! -f $HOME/.old_home ]]; then
-        echo $HOME > $HOME/.old_home
-    fi
-    OLD_HOME=$(cat $HOME/.old_home)
-    if [[ "$OLD_HOME" != "$HOME" ]]; then
-        echo $HOME > $HOME/.old_home
-        $C_PATH_TO_CONFIG/install.sh -u
-        echo "+------------------------------------------------+"
-        echo "|                                                |"
-        echo "|             /!\\ You've changed zsf             |"
-        echo "|                                                |"
-        echo "| If you encounter issue with binaries installed |"
-        echo "| via brew, you should use the command :         |"
-        echo "| repare_brew                                    |"
-        echo "| /!\\ This command may take some time            |"
-        echo "+------------------------------------------------+"
-    fi
-
-    # reinstall brew and all the installed binaries
-    function repare_brew ()
-    {
-        brew list > $HOME/.brew_list &&
-            rm -rf $HOME/.brew && mkdir $HOME/.brew &&
-            curl -L https://github.com/Homebrew/homebrew/tarball/master |
-        tar xz --strip 1 -C $HOME/.brew &&
-            mkdir -p $HOME/Library/Caches/Homebrew
-        if [[ -f $C_PATH_TO_PERSONAL_CONFIG/brew_tap ]]; then
-            for line in `cat $C_PATH_TO_PERSONAL_CONFIG/brew_tap`
-            do
-                if [[ ${line:0:1} != "#" ]]; then
-                    $HOME/.brew/bin/brew tap $line
-                fi
-            done
-        fi
-        $HOME/.brew/bin/brew install `cat $HOME/.brew_list` &&
-            rm $HOME/.brew_list
-    }
 
     function next ()
     {
